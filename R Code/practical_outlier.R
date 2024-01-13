@@ -7,12 +7,12 @@
 #####################################################################
 
 ## Libraries
-# library(tidyverse)
-# library(MASS)
-# library(fda)
-# library(fdaoutlier)
-# library(pracma)
-# options(dplyr.summarise.inform = FALSE)
+library(tidyverse)
+library(MASS)
+library(fda)
+library(fdaoutlier)
+library(pracma)
+options(dplyr.summarise.inform = FALSE)
 
 
 
