@@ -514,12 +514,12 @@ sim_results_sum <- sim_results %>%
 #####################################################################
 # Create a new folder in the data directory for the new results
 curr_date <- gsub("-", "_", Sys.Date())
-dir.create(file.path(data_path, paste0("sim_", curr_date)), 
+dir.create(file.path(data_path, paste0("sim_type_", curr_date)), 
            showWarnings = FALSE)
 
 # Save the new results
 save_path <- file.path(data_path, 
-                       paste0("sim_", curr_date), 
+                       paste0("sim_type_", curr_date), 
                        file_name)
 
 base::save(sim_results_sum, file = save_path)
