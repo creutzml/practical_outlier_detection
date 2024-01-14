@@ -40,6 +40,7 @@ The raw results of the simulation described and summarized in Section 3.2 are sa
 
 ## Figures: Details
 This folder contains pdf copies of figures created in the manuscript. The file names and corresponding figure number are given below:
+- `outlier_sim_models.pdf`: copy of Figure 1
 - `sim_results_mcc_nT.pdf`: copy of Figure 2
 - `sim_results_mcc_alphaT.pdf`: copy of Figure 3
 - `sim_results_for_type_magnitude_nT.pdf`: the "Comparing Classification of Magnitude Outliers" plot of Figure 4.
