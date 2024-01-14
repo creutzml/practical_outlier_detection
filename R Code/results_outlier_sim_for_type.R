@@ -28,32 +28,41 @@ library(magrittr)
 dir_path <- file.path(here::here(), "R Code")
 data_path <- file.path(here::here(), "Data")
 
-# File path to the folder
-fold_path <- file.path(data_path, "*INSERT FOLDER NAME*")
+## The following block of code allows for the user to compile all new
+## simulations into one data file from the saved files the simulation
+## creates. E.g., on line 517, a folder is created that saves the
+## simulation results. Copy the name of the folder and place below 
+## where it says *INSERT FOLDER NAME*. 
 
-# List the files in the folder
-fold_files <- list.files(fold_path, full.names = T)
+# # File path to the folder
+# fold_path <- file.path(data_path, "*INSERT FOLDER NAME*")
+# 
+# # List the files in the folder
+# fold_files <- list.files(fold_path, full.names = T)
+# 
+# # Read in first data frame
+# load(file = file.path(fold_files[1]))
+# sim_results_all <- sim_results_sum
+# 
+# # Loop through all files, binding the rows to the first data frame
+# p_bar <- progress::progress_bar$new(total = length(fold_files))
+# for (f in 2:length(fold_files)) {
+#   # Load the next data file in
+#   load(file = file.path(fold_files[f]))
+#   
+#   # Combine into one data frame
+#   sim_results_all <- dplyr::bind_rows(sim_results_all, 
+#                                       sim_results_sum)
+#   
+#   # Remove the single file
+#   rm(sim_results_sum)
+#   
+#   # Update progress
+#   p_bar$tick()
+# }
 
-# Read in first data frame
-load(file = file.path(fold_files[1]))
-sim_results_all <- sim_results_sum
-
-# Loop through all files, binding the rows to the first data frame
-p_bar <- progress::progress_bar$new(total = length(fold_files))
-for (f in 2:length(fold_files)) {
-  # Load the next data file in
-  load(file = file.path(fold_files[f]))
-  
-  # Combine into one data frame
-  sim_results_all <- dplyr::bind_rows(sim_results_all, 
-                                      sim_results_sum)
-  
-  # Remove the single file
-  rm(sim_results_sum)
-  
-  # Update progress
-  p_bar$tick()
-}
+## Load the simulation results for the type simulation
+load(file.path(data_path, "sim_results_for_type.RData"))
 #####################################################################
 
 
@@ -116,6 +125,7 @@ sim_results_summary_meth_shift <- sim_results_summary_meth %>%
   dplyr::select(c(Method, Sensitivity, Specificity, 
                   Accuracy, Precision, MCC))
 
+## Reproduce "Magnitude" table of Table 2 in manuscript
 # Produce latex code
 kableExtra::kbl(sim_results_summary_meth_shift, 
                 booktabs = TRUE, 
@@ -150,6 +160,7 @@ sim_results_summary_meth_shape <- sim_results_summary_meth %>%
   dplyr::select(c(Method, Sensitivity, Specificity, 
                   Accuracy, Precision, MCC))
 
+## Reproduce "Shape" table of Table 2 in manuscript
 # Produce latex code
 kableExtra::kbl(sim_results_summary_meth_shape, 
                 booktabs = TRUE, 
@@ -209,11 +220,11 @@ sim_results_summary_nTmeth_shape <- sim_results_summary_nTmeth %>%
   dplyr::filter(Metric == "mcc_shape.mean") %>%
   dplyr::rename("n" = "n_obs")
 
-sim_results_summary_nTmeth_shape %>%
-  group_by(n, n_smpl_pts, Method) %>%
-  dplyr::filter(Metric == "mcc_shape.mean") %>%
-  dplyr::summarise(avg_mcc = mean(Estimate, na.rm = T)) %>%
-  View()
+# sim_results_summary_nTmeth_shape %>%
+#   group_by(n, n_smpl_pts, Method) %>%
+#   dplyr::filter(Metric == "mcc_shape.mean") %>%
+#   dplyr::summarise(avg_mcc = mean(Estimate, na.rm = T)) %>%
+#   View()
 
 # change the order of factor levels for method to match rest of paper
 sim_results_summary_nTmeth_shape$Method <- factor(
@@ -228,6 +239,8 @@ sim_results_summary_nTmeth_shape$Method <- factor(
 cb_pallette <- c("#999999", "#E69F00", "#56B4E9", 
                  "#009E73", "#0072B2")
 
+## Reproduces the "Compare Classification of Shape Outliers" plot
+## in Figure 4 of the manuscript
 # Plot, fcaeted by sample size, with diagnostic trending over T
 shape_plot <- ggplot() +
   geom_line(aes(x = n_smpl_pts, 
@@ -271,11 +284,11 @@ sim_results_summary_nTmeth_shift <- sim_results_summary_nTmeth %>%
   dplyr::filter(Metric == "mcc_shift.mean") %>%
   dplyr::rename("n" = "n_obs")
 
-sim_results_summary_nTmeth_shift %>%
-  group_by(n, n_smpl_pts, Method) %>%
-  dplyr::filter(Metric == "mcc_shift.mean") %>%
-  dplyr::summarise(avg_mcc = mean(Estimate, na.rm = T)) %>%
-  View()
+# sim_results_summary_nTmeth_shift %>%
+#   group_by(n, n_smpl_pts, Method) %>%
+#   dplyr::filter(Metric == "mcc_shift.mean") %>%
+#   dplyr::summarise(avg_mcc = mean(Estimate, na.rm = T)) %>%
+#   View()
 
 sim_results_summary_nTmeth_shift$Method <- factor(
   sim_results_summary_nTmeth_shift$Method,
@@ -286,6 +299,8 @@ sim_results_summary_nTmeth_shift$Method <- factor(
              "TVD")
 )
 
+## Reproduces the "Compare Classification of Magnitude Outliers" plot
+## in Figure 4 of the manuscript
 # Plot, fcaeted by sample size, with diagnostic trending over T
 mag_plot <- ggplot() +
   geom_line(aes(x = n_smpl_pts, 
@@ -313,6 +328,10 @@ mag_plot <- ggplot() +
 
 
 
+
+## The follow block of code is used to assess the affect of \beta on 
+## the performance of each method in the simulation (summary of the
+## results is the last paragraph of Section 3.3)
 ### Averaged over beta, T, and method:
 #####################################################################
 ## Create the MCC metric, then get some summary data frames:
@@ -474,11 +493,11 @@ sim_results_summary_rTmeth_shape <- sim_results_summary_rTmeth %>%
   dplyr::filter(Metric == "mcc_shape.mean") %>%
   dplyr::rename("r" = "outlier_rate")
 
-sim_results_summary_rTmeth_shape %>%
-  group_by(r, n_smpl_pts, Method) %>%
-  dplyr::filter(Metric == "mcc_shape.mean") %>%
-  dplyr::summarise(avg_mcc = mean(Estimate, na.rm = T)) %>%
-  View()
+# sim_results_summary_rTmeth_shape %>%
+#   group_by(r, n_smpl_pts, Method) %>%
+#   dplyr::filter(Metric == "mcc_shape.mean") %>%
+#   dplyr::summarise(avg_mcc = mean(Estimate, na.rm = T)) %>%
+#   View()
 
 sim_results_summary_rTmeth_shape$Method <- factor(
   sim_results_summary_rTmeth_shape$Method,
@@ -489,7 +508,9 @@ sim_results_summary_rTmeth_shape$Method <- factor(
              "TVD")
 )
 
-# Plot, fcaeted by beta, with diagnostic trending over T
+## Recreates the "Comparing Classification of Shape Outliers" plot in
+## Figure 8 found in Appendix A of the manuscript
+# Plot, faceted by r, with diagnostic trending over T
 ggplot() +
   geom_line(aes(x = n_smpl_pts, 
                 y = Estimate,
@@ -532,11 +553,11 @@ sim_results_summary_rTmeth_shift <- sim_results_summary_rTmeth %>%
   dplyr::filter(Metric == "mcc_shift.mean") %>%
   dplyr::rename("r" = "outlier_rate")
 
-sim_results_summary_rTmeth_shift %>%
-  group_by(r, n_smpl_pts, Method) %>%
-  dplyr::filter(Metric == "mcc_shift.mean") %>%
-  dplyr::summarise(avg_mcc = mean(Estimate, na.rm = T)) %>%
-  View()
+# sim_results_summary_rTmeth_shift %>%
+#   group_by(r, n_smpl_pts, Method) %>%
+#   dplyr::filter(Metric == "mcc_shift.mean") %>%
+#   dplyr::summarise(avg_mcc = mean(Estimate, na.rm = T)) %>%
+#   View()
 
 sim_results_summary_rTmeth_shift$Method <- factor(
   sim_results_summary_rTmeth_shift$Method,
@@ -547,6 +568,8 @@ sim_results_summary_rTmeth_shift$Method <- factor(
              "TVD")
 )
 
+## Recreates the "Comparing Classification of Magnitude Outliers" plot
+## in Figure 8 found in Appendix A of the manuscript
 # Plot, fcaeted by beta, with diagnostic trending over T
 ggplot() +
   geom_line(aes(x = n_smpl_pts, 
