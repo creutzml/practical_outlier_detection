@@ -1,3 +1,15 @@
+#####################################################################
+### Michael Creutzinger                                           ###
+### Colorado State University                                     ###
+### June 20th, 2023                                               ###
+###                                                               ###
+###   Adapts the sample generation function from Ojo et al.       ###
+### (2021) to produce a random sample of data with multiple types ###
+### of functional outliers present, including outliers that are a ###
+### half and half combination of magnitude and shape outlier.     ###
+#####################################################################
+
+
 simulation_modelB <- function (
   n = 100, p = 50, outlier_rate = 0.05, mu = 4, q = 8, 
   kprob = 0.5, a = 0.1, b = 0.9, l = 0.05, cov_alpha = 1, 
@@ -97,6 +109,4 @@ simulation_modelB <- function (
   }
   return(list(data = t(y), true_outliers = dtt))
 }
-
-# simulation_modelB(cov_beta = .9, plot = T, n = 100)
 

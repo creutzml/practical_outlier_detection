@@ -8,6 +8,11 @@
 ### of Ojo et al. (2021) package `fdaoutlier`.                    ###
 #####################################################################
 
+
+
+
+## Setup steps
+#####################################################################
 # Libraries
 library(tidyverse)
 library(ggplot2)
@@ -16,7 +21,19 @@ library(fdaoutlier)
 library(ggthemes)
 library(gridExtra)
 
+# Directory paths
+dir_path <- file.path(here::here(), "R Code")
 
+# Source scripts needed for plots
+source(file = file.path(dir_path, "simulation_model_b.R"))
+source(file = file.path(dir_path, "simulation_model_b_only.R"))
+#####################################################################
+
+
+
+
+## Recreates Figure 1 in the Introduction (Section 1)
+#####################################################################
 ## Ojo data models
 model_list <- vector("list", 9)
 plot_colors <- c("lightgray", "red")
@@ -47,6 +64,15 @@ for (i in 1:9) {
 }  
 
 do.call("grid.arrange", c(model_list, ncol = 3))
+#####################################################################
 
 
-  
+
+## Recreates Figures 6 and 7 in Appendix A
+#####################################################################
+# Figure 6
+simulation_modelB2(cov_beta = .9, plot = T)
+
+# Figure 7
+simulation_modelB(cov_beta = .9, plot = T, n = 100)
+#####################################################################
