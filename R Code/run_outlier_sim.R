@@ -75,7 +75,7 @@ sim_mod_fct <- match.fun(paste0("simulation_model", sim_mod))
 ## Start the simulation
 #####################################################################
 # Number of simulation iterations
-n_iters <- 1
+n_iters <- 1000
 
 # Number of methods being used:
 n_meths <- 6
