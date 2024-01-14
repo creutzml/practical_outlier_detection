@@ -21,33 +21,21 @@ library(ggrepel)
 
 ## Helper function and main method
 #####################################################################
-# Main directory:
-main_dir <- file.path("/Users/creutzml/Library/Mobile Documents",
-                      "/com~apple~CloudDocs/Documents/Dissertation",
-                      "/functional_data_analysis/code")
+# Directories
+dir_path <- file.path(here::here(), "R Code")
+data_path <- file.path(here::here(), "Data")
 
 # Source the functions
-source(file.path(main_dir, 
-                 "outlier_detection/practical_outlier",
-                 "/practical_outlier.R"))
-# source(file.path(main_dir, 
-#                  "outlier_detection/ff_outlier/ff_outlier.R"))
-source(file.path(main_dir, 
-                 "fast_and_fair/make_regression_band_mc.R"))
-source(file.path(main_dir, 
-                 "fast_and_fair/make_band_mc.R"))
-source(file.path(main_dir, 
-                 "fast_and_fair/confidence_band_mc.R"))
-source(file.path(main_dir, 
-                 "outlier_detection/tvdmss_mc.R"))
+source(file.path(dir_path, "practical_outlier.R"))
+source(file.path(dir_path, "tvdmss_mc.R"))
 #####################################################################
 
 
 
 ## Load the data in
 #####################################################################
-View(world_population)
-matplot(t(world_population), type = "l")
+# View(world_population)
+# matplot(t(world_population), type = "l")
 
 # Grab common values
 n_obs <- nrow(world_population)
@@ -125,16 +113,6 @@ easy_outliers_c1.5_countries <-
   rownames(world_population)[easy_outliers_c1.5_idx]
 #################################################################
 
-
-
-# ## Outlier detection with FFSPBands
-# #################################################################
-# ff_test <- ff_outlier(test_data = world_population, 
-#                       cutoff = 0.9)
-# 
-# # Grab the results
-# ff_outliers <- ff_test$outliers
-# #################################################################
 
 
 ## Outlier detection with MS-Plot
@@ -246,6 +224,8 @@ world_population_long <- world_population %>%
 # Make colorblind palette
 # The palette with grey:
 cbPalette <- c("#E69F00", "#56B4E9", "#CC79A7", "#999999")
+
+## Recreate Figure 5 in Section 4
 # Make the plot
 ggplot() + 
   geom_line(aes(x = Year, 
@@ -293,43 +273,43 @@ ggplot() +
 
 ### Plot of results for TVD
 #################################################################
-world_population_long <- world_population %>%
-  as.data.frame() %>%
-  tibble::rownames_to_column(var = "Country") %>%
-  dplyr::mutate(Outlier = Country %in% tvd_outliers_countries) %>%
-  pivot_longer(-c(Country, Outlier), 
-               names_to = "Year", 
-               values_to = "Population") %>%
-  dplyr::mutate(Year = as.numeric(substr(Year, 2, 5))) %>%
-  dplyr::mutate(`Outlier Type` = case_when(
-    Outlier ~ "Shape",
-    TRUE ~ "None"
-  )) %>%
-  dplyr::mutate(`Outlier Type` = factor(`Outlier Type`, 
-                                        levels = c("Magnitude", 
-                                                   "Shape", 
-                                                   "None")))
-
-## Plot of world population outliers by POD
-# Make colorblind palette
-# The palette with grey:
-cbPalette <- c("#56B4E9", "#999999")
-# Make the plot
-ggplot() + 
-  geom_line(aes(x = Year, 
-                y = Population, 
-                color = `Outlier Type`, 
-                group = Country), 
-            data = world_population_long) +
-  geom_label_repel(aes(x = Year, 
-                       y = Population, 
-                       label = Country), 
-                   data = world_population_long %>% 
-                     dplyr::filter(Outlier, Year == 2010), 
-                   size = 6) +
-  scale_color_manual(values = cbPalette) +
-  theme_bw(base_size = 20) +
-  labs(y = "Population ('000)")
+# world_population_long <- world_population %>%
+#   as.data.frame() %>%
+#   tibble::rownames_to_column(var = "Country") %>%
+#   dplyr::mutate(Outlier = Country %in% tvd_outliers_countries) %>%
+#   pivot_longer(-c(Country, Outlier), 
+#                names_to = "Year", 
+#                values_to = "Population") %>%
+#   dplyr::mutate(Year = as.numeric(substr(Year, 2, 5))) %>%
+#   dplyr::mutate(`Outlier Type` = case_when(
+#     Outlier ~ "Shape",
+#     TRUE ~ "None"
+#   )) %>%
+#   dplyr::mutate(`Outlier Type` = factor(`Outlier Type`, 
+#                                         levels = c("Magnitude", 
+#                                                    "Shape", 
+#                                                    "None")))
+# 
+# ## Plot of world population outliers by POD
+# # Make colorblind palette
+# # The palette with grey:
+# cbPalette <- c("#56B4E9", "#999999")
+# # Make the plot
+# ggplot() + 
+#   geom_line(aes(x = Year, 
+#                 y = Population, 
+#                 color = `Outlier Type`, 
+#                 group = Country), 
+#             data = world_population_long) +
+#   geom_label_repel(aes(x = Year, 
+#                        y = Population, 
+#                        label = Country), 
+#                    data = world_population_long %>% 
+#                      dplyr::filter(Outlier, Year == 2010), 
+#                    size = 6) +
+#   scale_color_manual(values = cbPalette) +
+#   theme_bw(base_size = 20) +
+#   labs(y = "Population ('000)")
 #################################################################
 
 
@@ -420,6 +400,7 @@ world_comp <- data.frame(
                    NA)
 )
 
+## Reproduces Table 3 in Section 4
 # Produce latex code
 kableExtra::kbl(world_comp, 
                 booktabs = TRUE, 
@@ -427,6 +408,8 @@ kableExtra::kbl(world_comp,
   kableExtra::kable_styling(latex_options = c("scale_down", 
                                               "hold_position"))
 
+## Describing the similar results of all methods applied to the
+## World Population Growth case study
 # Calculate how many were agreed on by every method:
 all_agreed <- intersect(
   intersect(
