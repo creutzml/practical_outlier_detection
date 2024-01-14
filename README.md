@@ -7,7 +7,6 @@ The contents of this repository are organized into three main folders: R Code, D
 - **R Code**: folder that contains all R scripts for implementing POD, creating a random sample of functional data with outliers present, reproducing simulations, and reproducing the case study.
 - **Data**: the saved simulation .RData files are provided here for easy reproducibility of the simulation figures and tables. If any new simulation iterations are run, a new folder is created in this directory and the new simulation results are saved there. 
 - **Figures**: copies of the plots and figures presented in the manuscript.
-\end{itemize}
 
 ## R Code: Details
 The primary R script of interest is `practical_outlier.R`, which contains the function to implement my functional outlier detection method, Practical Outlier Detection (POD). 
@@ -36,4 +35,17 @@ The remaining scripts in the folder allow one to recreate the simulation results
 - `results_outlier_sim_for_type.R`: summarizes and reproduces the simulation results of Section 3.3. Specifically, this script reproduces Table 2, Figure 4, and Figure 8.
 - `world_population.R`: reproduces the results of the case study presented in Section 4. Specifically, this script reproduces Table 3 and Figure 5.
 
+## Data: Details
+The raw results of the simulation described and summarized in Section 3.2 are saved as `sim_results_all.RData` and the raw results for Section 3.3 are saved as `sim_results_for_type.RData`. When a new simulation is implemented by `run_outlier_sim.R`, a new folder named `sim_*current date*` is created and the simulation results are saved there. When a new simulation is implemented by `run_outlier_sim_for_type.R`, a new folder named `sim_type_*current date*` is created and the simulation results are saved there. 
 
+## Figures: Details
+This folder contains pdf copies of figures created in the manuscript. The file names and corresponding figure number are given below:
+- `sim_results_mcc_nT.pdf`: copy of Figure 2
+- `sim_results_mcc_alphaT.pdf`: copy of Figure 3
+- `sim_results_for_type_magnitude_nT.pdf`: the "Comparing Classification of Magnitude Outliers" plot of Figure 4.
+- `sim_results_for_type_shape_nT.pdf`: the "Comparing Classification of Shape Outliers" plot of Figure 4.
+- `world_population_pod.pdf`: copy of Figure 5
+- `simulation_model_combined.pdf`: copy of Figure 6
+- `simulation_model_mix.pdf`: copy of Figure 7
+- `sim_results_for_type_magnitude_rT.pdf`: the "Comparing Classification of Magnitude Outliers" plot of Figure 8.
+- `sim_results_for_type_shape_rT.pdf`: the "Comparing Classification of Shape Outliers" plot of Figure 8.
