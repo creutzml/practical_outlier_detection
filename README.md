@@ -31,6 +31,8 @@ The remaining scripts in the folder allow one to recreate the simulation results
 - `tvdmss_mc.R`: 
 - `plotting_script.R`: allows one to recreate Figures 1, 6, and 7 in the manuscript
 - `tvdmss_mc.R`: adapts the code originally created by Huang and Sun (2019) to correct for an error that occurred when there is a "positive" MSS outlier.
+- `run_outlier_sim.R`: allows one to run a single parameter combination (at a time) of the simulation described in Section 3.2
+- `results_outlier_sim.R`: summarizes and reproduces the simulation results of Section 3.2
 - `run_outlier_sim_for_type.R`: allows one to run a single parameter combination (at a time) of the simulation described in Section 3.3
 - `results_outlier_sim_for_type.R`: summarizes and reproduces the simulation results of Section 3.3
 - `world_population.R`: reproduces the results of the case study presented in Section 4
