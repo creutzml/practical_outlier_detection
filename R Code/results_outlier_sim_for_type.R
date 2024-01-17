@@ -218,7 +218,8 @@ sim_results_summary_nTmeth_shape <- sim_results_summary_nTmeth %>%
     out_meth == "muod_outliers_tan" ~ "MUOD (tan)",
     out_meth == "tvd_outliers" ~ "TVD")) %>%
   dplyr::filter(Metric == "mcc_shape.mean") %>%
-  dplyr::rename("n" = "n_obs")
+  dplyr::rename("n" = "n_obs") %>%
+  dplyr::mutate(Out_Type = "Shape")
 
 # sim_results_summary_nTmeth_shape %>%
 #   group_by(n, n_smpl_pts, Method) %>%
@@ -239,31 +240,31 @@ sim_results_summary_nTmeth_shape$Method <- factor(
 cb_pallette <- c("#999999", "#E69F00", "#56B4E9", 
                  "#009E73", "#0072B2")
 
-## Reproduces the "Compare Classification of Shape Outliers" plot
-## in Figure 4 of the manuscript
-# Plot, fcaeted by sample size, with diagnostic trending over T
-shape_plot <- ggplot() +
-  geom_line(aes(x = n_smpl_pts, 
-                y = Estimate,
-                color = Method, 
-                linetype = Method),
-            linewidth = 1.5,
-            data = sim_results_summary_nTmeth_shape) + 
-  geom_point(aes(x = n_smpl_pts, 
-                 y = Estimate, 
-                 color = Method, 
-                 shape = Method), 
-             size = 4,
-             data = sim_results_summary_nTmeth_shape) + 
-  facet_grid(cols = vars(n),
-             scales = "free",
-             labeller = purrr::partial(label_both, sep = " = ")) +
-  scale_color_manual(values = cb_pallette) +
-  labs(y = "Matthews Correlation Coefficient (MCC)",
-       x = "T", 
-       title = "Comparing Classification of Shape Outliers") +
-  # theme(strip.text = element_text(size = 20))
-  theme_bw(base_size = 18)
+# ## Reproduces the "Compare Classification of Shape Outliers" plot
+# ## in Figure 4 of the manuscript
+# # Plot, fcaeted by sample size, with diagnostic trending over T
+# shape_plot <- ggplot() +
+#   geom_line(aes(x = n_smpl_pts, 
+#                 y = Estimate,
+#                 color = Method, 
+#                 linetype = Method),
+#             linewidth = 1.5,
+#             data = sim_results_summary_nTmeth_shape) + 
+#   geom_point(aes(x = n_smpl_pts, 
+#                  y = Estimate, 
+#                  color = Method, 
+#                  shape = Method), 
+#              size = 4,
+#              data = sim_results_summary_nTmeth_shape) + 
+#   facet_grid(cols = vars(n),
+#              scales = "free",
+#              labeller = purrr::partial(label_both, sep = " = ")) +
+#   scale_color_manual(values = cb_pallette) +
+#   labs(y = "Matthews Correlation Coefficient (MCC)",
+#        x = "T", 
+#        title = "Comparing Classification of Shape Outliers") +
+#   # theme(strip.text = element_text(size = 20))
+#   theme_bw(base_size = 18)
 
 
 # Summarized over n, T, and method; pivoted for just shift outliers
@@ -282,7 +283,8 @@ sim_results_summary_nTmeth_shift <- sim_results_summary_nTmeth %>%
     out_meth == "muod_outliers_tan" ~ "MUOD (tan)",
     out_meth == "tvd_outliers" ~ "TVD")) %>%
   dplyr::filter(Metric == "mcc_shift.mean") %>%
-  dplyr::rename("n" = "n_obs")
+  dplyr::rename("n" = "n_obs") %>%
+  dplyr::mutate(Out_Type = "Magnitude")
 
 # sim_results_summary_nTmeth_shift %>%
 #   group_by(n, n_smpl_pts, Method) %>%
@@ -299,30 +301,62 @@ sim_results_summary_nTmeth_shift$Method <- factor(
              "TVD")
 )
 
-## Reproduces the "Compare Classification of Magnitude Outliers" plot
-## in Figure 4 of the manuscript
-# Plot, fcaeted by sample size, with diagnostic trending over T
-mag_plot <- ggplot() +
+# ## Reproduces the "Compare Classification of Magnitude Outliers" plot
+# ## in Figure 4 of the manuscript
+# # Plot, fcaeted by sample size, with diagnostic trending over T
+# mag_plot <- ggplot() +
+#   geom_line(aes(x = n_smpl_pts, 
+#                 y = Estimate,
+#                 color = Method, 
+#                 linetype = Method),
+#             size = 1.5,
+#             data = sim_results_summary_nTmeth_shift) + 
+#   geom_point(aes(x = n_smpl_pts, 
+#                  y = Estimate, 
+#                  color = Method, 
+#                  shape = Method), 
+#              size = 4,
+#              data = sim_results_summary_nTmeth_shift) + 
+#   facet_grid(cols = vars(n), 
+#              # rows = vars(Metric),
+#              scales = "free",
+#              labeller = purrr::partial(label_both, sep = " = ")) +
+#   scale_color_manual(values = cb_pallette) +
+#   labs(y = "Matthews Correlation Coefficient (MCC)",
+#        x = "T", 
+#        title = "Comparing Classification of Magnitude Outliers") +
+#   theme_bw(base_size = 18)
+
+
+## Make it as a single plot instead
+sim_results_summary_nTmeth_all <- dplyr::bind_rows(
+  sim_results_summary_nTmeth_shift, sim_results_summary_nTmeth_shape
+)
+
+
+## Make Figure 4
+ggplot() +
   geom_line(aes(x = n_smpl_pts, 
                 y = Estimate,
                 color = Method, 
                 linetype = Method),
             size = 1.5,
-            data = sim_results_summary_nTmeth_shift) + 
+            data = sim_results_summary_nTmeth_all) + 
   geom_point(aes(x = n_smpl_pts, 
                  y = Estimate, 
                  color = Method, 
                  shape = Method), 
              size = 4,
-             data = sim_results_summary_nTmeth_shift) + 
+             data = sim_results_summary_nTmeth_all) + 
   facet_grid(cols = vars(n), 
-             # rows = vars(Metric),
+             rows = vars(Out_Type),
              scales = "free",
-             labeller = purrr::partial(label_both, sep = " = ")) +
+             labeller = label_bquote(
+               cols = "n = "*.(n), 
+               rows = .(Out_Type)*" Outlier")) +
   scale_color_manual(values = cb_pallette) +
   labs(y = "Matthews Correlation Coefficient (MCC)",
-       x = "T", 
-       title = "Comparing Classification of Magnitude Outliers") +
+       x = "T") +
   theme_bw(base_size = 18)
 #####################################################################
 
@@ -491,7 +525,8 @@ sim_results_summary_rTmeth_shape <- sim_results_summary_rTmeth %>%
     out_meth == "muod_outliers_tan" ~ "MUOD (tan)",
     out_meth == "tvd_outliers" ~ "TVD")) %>%
   dplyr::filter(Metric == "mcc_shape.mean") %>%
-  dplyr::rename("r" = "outlier_rate")
+  dplyr::rename("r" = "outlier_rate") %>%
+  dplyr::mutate(Out_Type = "Shape")
 
 # sim_results_summary_rTmeth_shape %>%
 #   group_by(r, n_smpl_pts, Method) %>%
@@ -508,31 +543,31 @@ sim_results_summary_rTmeth_shape$Method <- factor(
              "TVD")
 )
 
-## Recreates the "Comparing Classification of Shape Outliers" plot in
-## Figure 8 found in Appendix A of the manuscript
-# Plot, faceted by r, with diagnostic trending over T
-ggplot() +
-  geom_line(aes(x = n_smpl_pts, 
-                y = Estimate,
-                color = Method, 
-                linetype = Method),
-            size = 1.5,
-            data = sim_results_summary_rTmeth_shape) + 
-  geom_point(aes(x = n_smpl_pts, 
-                 y = Estimate, 
-                 color = Method, 
-                 shape = Method), 
-             size = 4,
-             data = sim_results_summary_rTmeth_shape) + 
-  facet_grid(cols = vars(r), 
-             # rows = vars(Metric),
-             scales = "free",
-             labeller = purrr::partial(label_both, sep = " = ")) +
-  scale_color_manual(values = cb_pallette) +
-  labs(y = "Matthews Correlation Coefficient (MCC)",
-       x = "T", 
-       title = "Comparing Classification of Shape Outliers") +
-  theme_bw(base_size = 18)
+# ## Recreates the "Comparing Classification of Shape Outliers" plot in
+# ## Figure 8 found in Appendix A of the manuscript
+# # Plot, faceted by r, with diagnostic trending over T
+# ggplot() +
+#   geom_line(aes(x = n_smpl_pts, 
+#                 y = Estimate,
+#                 color = Method, 
+#                 linetype = Method),
+#             size = 1.5,
+#             data = sim_results_summary_rTmeth_shape) + 
+#   geom_point(aes(x = n_smpl_pts, 
+#                  y = Estimate, 
+#                  color = Method, 
+#                  shape = Method), 
+#              size = 4,
+#              data = sim_results_summary_rTmeth_shape) + 
+#   facet_grid(cols = vars(r), 
+#              # rows = vars(Metric),
+#              scales = "free",
+#              labeller = purrr::partial(label_both, sep = " = ")) +
+#   scale_color_manual(values = cb_pallette) +
+#   labs(y = "Matthews Correlation Coefficient (MCC)",
+#        x = "T", 
+#        title = "Comparing Classification of Shape Outliers") +
+#   theme_bw(base_size = 18)
 
 
 # Summarized over beta, T, and method; pivoted for just shift outliers
@@ -551,7 +586,8 @@ sim_results_summary_rTmeth_shift <- sim_results_summary_rTmeth %>%
     out_meth == "muod_outliers_tan" ~ "MUOD (tan)",
     out_meth == "tvd_outliers" ~ "TVD")) %>%
   dplyr::filter(Metric == "mcc_shift.mean") %>%
-  dplyr::rename("r" = "outlier_rate")
+  dplyr::rename("r" = "outlier_rate") %>%
+  dplyr::mutate(Out_Type = "Magnitude")
 
 # sim_results_summary_rTmeth_shift %>%
 #   group_by(r, n_smpl_pts, Method) %>%
@@ -568,27 +604,58 @@ sim_results_summary_rTmeth_shift$Method <- factor(
              "TVD")
 )
 
-## Recreates the "Comparing Classification of Magnitude Outliers" plot
-## in Figure 8 found in Appendix A of the manuscript
-# Plot, fcaeted by beta, with diagnostic trending over T
+# ## Recreates the "Comparing Classification of Magnitude Outliers" plot
+# ## in Figure 8 found in Appendix A of the manuscript
+# # Plot, fcaeted by beta, with diagnostic trending over T
+# ggplot() +
+#   geom_line(aes(x = n_smpl_pts, 
+#                 y = Estimate,
+#                 color = Method, 
+#                 linetype = Method),
+#             size = 1.5,
+#             data = sim_results_summary_rTmeth_shift) + 
+#   geom_point(aes(x = n_smpl_pts, 
+#                  y = Estimate, 
+#                  color = Method, 
+#                  shape = Method), 
+#              size = 4,
+#              data = sim_results_summary_rTmeth_shift) + 
+#   facet_grid(cols = vars(r), 
+#              # rows = vars(Metric),
+#              scales = "free",
+#              labeller = purrr::partial(label_both, sep = " = ")) +
+#   scale_color_manual(values = cb_pallette) +
+#   labs(y = "Matthews Correlation Coefficient (MCC)",
+#        x = "T", 
+#        title = "Comparing Classification of Magnitude Outliers") +
+#   theme_bw(base_size = 18)
+
+
+# Combine into single data frame for plotting
+sim_results_summary_rTmeth_all <- dplyr::bind_rows(
+  sim_results_summary_rTmeth_shift, sim_results_summary_rTmeth_shape
+)
+
+# Figure 8 in Appendix A:
 ggplot() +
   geom_line(aes(x = n_smpl_pts, 
                 y = Estimate,
                 color = Method, 
                 linetype = Method),
             size = 1.5,
-            data = sim_results_summary_rTmeth_shift) + 
+            data = sim_results_summary_rTmeth_all) + 
   geom_point(aes(x = n_smpl_pts, 
                  y = Estimate, 
                  color = Method, 
                  shape = Method), 
              size = 4,
-             data = sim_results_summary_rTmeth_shift) + 
+             data = sim_results_summary_rTmeth_all) + 
   facet_grid(cols = vars(r), 
-             # rows = vars(Metric),
+             rows = vars(Out_Type),
              scales = "free",
-             labeller = purrr::partial(label_both, sep = " = ")) +
-  scale_color_manual(values = cb_pallette) +
+             labeller = label_bquote(
+               cols = "r = "*.(r), 
+               rows = .(Out_Type)*" Outlier")) +
   labs(y = "Matthews Correlation Coefficient (MCC)",
        x = "T", 
        title = "Comparing Classification of Magnitude Outliers") +
