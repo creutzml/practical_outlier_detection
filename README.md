@@ -50,3 +50,11 @@ This folder contains pdf copies of figures created in the manuscript. The file n
 - `simulation_model_mix.pdf`: copy of Figure 7
 - `sim_results_for_type_magnitude_rT.pdf`: the "Comparing Classification of Magnitude Outliers" plot of Figure 8.
 - `sim_results_for_type_shape_rT.pdf`: the "Comparing Classification of Shape Outliers" plot of Figure 8.
+
+## References
+Ojo, O., Lillo, R. E., & Anta, A. F. (2021, October). Outlier Detection for Functional
+  Data with R Package fdaoutlier. arXiv:2105.05213 [stat] . Retrieved 2022-02-14, from
+  http://arxiv.org/abs/2105.05213 (arXiv: 2105.05213)
+  
+R Development Core Team. (2021). R: A Language and Environment for Statistical Com-
+  puting. Retrieved from http://www.r-project.org
