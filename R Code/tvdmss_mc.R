@@ -5,6 +5,9 @@
 ###                                                               ###
 ###   Correcting function `tvdmss`, because current function      ###
 ### trips an error whenever there is a "positive" MSS outlier.    ###
+### The original function was obtained from Ojo et al. (2021)'s   ###
+### package, `fdaoutlier`, and was written by Huang and Sun       ###
+### (2019).                                                       ###
 #####################################################################
 
 
