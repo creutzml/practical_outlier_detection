@@ -52,9 +52,8 @@ This folder contains pdf copies of figures created in the manuscript. The file n
 - `sim_results_for_type_shape_rT.pdf`: the "Comparing Classification of Shape Outliers" plot of Figure 8.
 
 ## References
-Ojo, O., Lillo, R. E., & Anta, A. F. (2021, October). Outlier Detection for Functional
-  Data with R Package fdaoutlier. arXiv:2105.05213 [stat] . Retrieved 2022-02-14, from
-  http://arxiv.org/abs/2105.05213 (arXiv: 2105.05213)
+- Huang, H., & Sun, Y. (2019, October). A Decomposition of Total Variation Depth for Understanding Functional Outliers. Technometrics, 61 (4), 445–458. Retrieved 2022-03-07, from https://www.tandfonline.com/doi/full/10.1080/00401706.2019.1574241 doi: 10.1080/00401706.2019.1574241
+
+- Ojo, O., Lillo, R. E., & Anta, A. F. (2021, October). Outlier Detection for Functional Data with R Package fdaoutlier. arXiv:2105.05213 [stat] . Retrieved 2022-02-14, from http://arxiv.org/abs/2105.05213 (arXiv: 2105.05213)
   
-R Development Core Team. (2021). R: A Language and Environment for Statistical Com-
-  puting. Retrieved from http://www.r-project.org
+- R Development Core Team. (2021). R: A Language and Environment for Statistical Computing. Retrieved from http://www.r-project.org
