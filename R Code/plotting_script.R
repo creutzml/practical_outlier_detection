@@ -53,7 +53,7 @@ for (i in 1:9) {
               color = "lightgrey",
               data = model_data_temp %>% filter(Out == "None")) +
     geom_line(aes(x = t, y = Value, group = Obs), 
-              color = "darkorange2",
+              color = "darkorange2", linetype = "longdash",
               data = model_data_temp %>% filter(Out == "Outlier")) +
     guides(color = "none") +
     labs(title = paste0("Simulation Model ", i)) +
