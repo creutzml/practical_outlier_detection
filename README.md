@@ -64,6 +64,6 @@ This folder contains pdf copies of figures created in the manuscript. The file n
   - Department of Statistics
   - Colorado State University
 
-- Julia L. Sharp
+- Julia L. Sharp, PhD
   - Mathemathical Statistican
   - National Institute of Science and Technology
