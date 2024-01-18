@@ -57,3 +57,13 @@ This folder contains pdf copies of figures created in the manuscript. The file n
 - Ojo, O., Lillo, R. E., & Anta, A. F. (2021, October). Outlier Detection for Functional Data with R Package fdaoutlier. arXiv:2105.05213 [stat] . Retrieved 2022-02-14, from http://arxiv.org/abs/2105.05213 (arXiv: 2105.05213)
   
 - R Development Core Team. (2021). R: A Language and Environment for Statistical Computing. Retrieved from http://www.r-project.org
+
+## Contributors:
+- Michael L. Creutzinger
+  - Doctoral Candidate (May 2024)
+  - Department of Statistics
+  - Colorado State University
+
+- Julia L. Sharp
+  - Mathemathical Statistican
+  - National Institute of Science and Technology
