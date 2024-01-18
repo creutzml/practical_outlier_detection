@@ -656,6 +656,7 @@ ggplot() +
              labeller = label_bquote(
                cols = "r = "*.(r), 
                rows = .(Out_Type)*" Outlier")) +
+  scale_color_manual(values = cb_pallette) +
   labs(y = "Matthews Correlation Coefficient (MCC)",
        x = "T", 
        title = "Comparing Classification of Magnitude Outliers") +
