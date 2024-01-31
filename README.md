@@ -1,5 +1,5 @@
 # practical_outlier_detection
-Code developed to implement Practical Outlier Detection (POD), a method for identifying and classifying the type of functional outlier in a univariate, random sample of functional data. This repository is created for the manuscript submission of Creutzinger and Sharp (2024), "Practical Outlier Detection in Functional Data Analysis".
+Code developed to implement Practical Outlier Detection (POD), a method for identifying and classifying the type of functional outlier in a univariate, random sample of functional data. This repository is created for the manuscript submission of Creutzinger and Sharp (2024), "Practical Outlier Detection in Functional Data Analysis" and for Chapter 2, Creutzinger (2024).
 
 ## General Structure of Repository
 The contents of this repository are organized into three main folders: R Code, Data, and Figures. A short description of each folder is given below.
