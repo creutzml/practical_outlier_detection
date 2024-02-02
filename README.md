@@ -34,6 +34,7 @@ The remaining scripts in the folder allow one to recreate the simulation results
 - `run_outlier_sim_for_type.R`: allows one to run a single parameter combination (at a time) of the simulation described in Section 3.3. 
 - `results_outlier_sim_for_type.R`: summarizes and reproduces the simulation results of Section 3.3. Specifically, this script reproduces Table 2, Figure 4, and Figure 8.
 - `world_population.R`: reproduces the results of the case study presented in Section 4. Specifically, this script reproduces Table 3 and Figure 5.
+- `prediction_band_outlier_detection.R`: implements functional outlier detection with the use of resampling and simultaneous prediction bands (described in Chapter 2, Creutzinger (2024)).
 
 ## Data: Details
 The raw results of the simulation described and summarized in Section 3.2 are saved as `sim_results_all.RData` and the raw results for Section 3.3 are saved as `sim_results_for_type.RData`. When a new simulation is implemented by `run_outlier_sim.R`, a new folder named `sim_*current date*` is created and the simulation results are saved there. When a new simulation is implemented by `run_outlier_sim_for_type.R`, a new folder named `sim_type_*current date*` is created and the simulation results are saved there. 
@@ -53,6 +54,9 @@ This folder contains pdf copies of figures created in the manuscript. The file n
 
 ## References
 - Huang, H., & Sun, Y. (2019, October). A Decomposition of Total Variation Depth for Understanding Functional Outliers. Technometrics, 61 (4), 445–458. Retrieved 2022-03-07, from https://www.tandfonline.com/doi/full/10.1080/00401706.2019.1574241 doi: 10.1080/00401706.2019.1574241
+
+- Liebl, Dominik, and Matthew Reimherr. (2023, July). “Fast and Fair Simultaneous Confidence Bands for Functional Parameters.” Journal of the Royal Statistical Society Series B: Statistical Methodology 85(3):842–68. doi: 10.1093/jrsssb/qkad026.
+
 
 - Ojo, O., Lillo, R. E., & Anta, A. F. (2021, October). Outlier Detection for Functional Data with R Package fdaoutlier. arXiv:2105.05213 [stat] . Retrieved 2022-02-14, from http://arxiv.org/abs/2105.05213 (arXiv: 2105.05213)
   
