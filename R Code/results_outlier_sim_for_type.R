@@ -340,13 +340,13 @@ ggplot() +
                 y = Estimate,
                 color = Method, 
                 linetype = Method),
-            size = 1.5,
+            size = 1,
             data = sim_results_summary_nTmeth_all) + 
   geom_point(aes(x = n_smpl_pts, 
                  y = Estimate, 
                  color = Method, 
                  shape = Method), 
-             size = 4,
+             size = 2.5,
              data = sim_results_summary_nTmeth_all) + 
   facet_grid(cols = vars(n), 
              rows = vars(Out_Type),
@@ -357,7 +357,11 @@ ggplot() +
   scale_color_manual(values = cb_pallette) +
   labs(y = "Matthews Correlation Coefficient (MCC)",
        x = "T") +
-  theme_bw(base_size = 18)
+  theme_bw(base_size = 16) +
+  theme(panel.spacing = unit(1, "lines"), 
+        strip.text = element_text(size = 16), 
+        legend.position = "bottom", 
+        legend.key.size = unit(1, "cm"))
 #####################################################################
 
 

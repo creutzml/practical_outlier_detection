@@ -219,7 +219,10 @@ ggplot() +
        shape = "Method", 
        linetype = "Method") +
   theme_bw(base_size = 16) +
-  theme(panel.spacing.x = unit(1, "lines"))
+  theme(panel.spacing.x = unit(1, "lines"),
+        strip.text = element_text(size = 16),
+        legend.position = "bottom", 
+        legend.key.size = unit(1, "cm"))
 
 ## Average with respect to alpha, T, and method for a plot
 sim_results_summary_alphaT_filt <- sim_results_all %>%
@@ -295,7 +298,10 @@ ggplot() +
        shape = "Method", 
        linetype = "Method") +
   theme_bw(base_size = 16) +
-  theme(panel.spacing.x = unit(1, "lines"))
+  theme(panel.spacing.x = unit(1, "lines"), 
+        strip.text = element_text(size = 16),
+        legend.position = "bottom", 
+        legend.key.size = unit(1, "cm"))
   # theme(legend.position = c(0.1, 0.15), 
   #       legend.background = element_rect(fill = "white", 
   #                                        color = "black"))
