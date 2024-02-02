@@ -197,27 +197,29 @@ ggplot() +
                 y = Estimate,
                 color = out_meth, 
                 linetype = out_meth),
-            size = 1.5,
+            size = 1,
             data = sim_results_summary_nT_filt_long) + 
   geom_point(aes(x = n_smpl_pts, 
                  y = Estimate, 
                  color = out_meth, 
                  shape = out_meth), 
-             size = 4,
+             size = 3,
              data = sim_results_summary_nT_filt_long) + 
   facet_grid(cols = vars(n), 
              # rows = vars(Metric),
              scales = "free", 
-             labeller = label_both) +
+             labeller = label_bquote(
+               cols = "n = "*.(n)
+             )) +
   scale_color_manual(values = cb_pallette) +
   labs(x = "T",
        y = "Matthews Correlation Coefficient (MCC)",
-       title = "Comparison of Outlier Detection Methods",
+       # title = "Comparison of Outlier Detection Methods",
        color = "Method", 
        shape = "Method", 
        linetype = "Method") +
-  theme_bw(base_size = 18)
-
+  theme_bw(base_size = 16) +
+  theme(panel.spacing.x = unit(1, "lines"))
 
 ## Average with respect to alpha, T, and method for a plot
 sim_results_summary_alphaT_filt <- sim_results_all %>%
@@ -271,26 +273,29 @@ ggplot() +
                 y = Estimate,
                 color = out_meth, 
                 linetype = out_meth),
-            size = 1.5,
+            size = 1,
             data = sim_results_summary_alphaT_filt_long) + 
   geom_point(aes(x = n_smpl_pts, 
                  y = Estimate, 
                  color = out_meth, 
                  shape = out_meth), 
-             size = 4,
+             size = 3,
              data = sim_results_summary_alphaT_filt_long) + 
   facet_grid(cols = vars(alpha), 
              # rows = vars(Metric),
              scales = "free", 
-             labeller = label_both) +
+             labeller = label_bquote(
+               cols = alpha*" = "*.(alpha)
+             )) +
   scale_color_manual(values = cb_pallette) +
   labs(x = "T",
        y = "Matthews Correlation Coefficient (MCC)",
-       title = "Comparison of Outlier Detection Methods",
+       # title = "Comparison of Outlier Detection Methods",
        color = "Method", 
        shape = "Method", 
        linetype = "Method") +
-  theme_bw(base_size = 21)
+  theme_bw(base_size = 16) +
+  theme(panel.spacing.x = unit(1, "lines"))
   # theme(legend.position = c(0.1, 0.15), 
   #       legend.background = element_rect(fill = "white", 
   #                                        color = "black"))
