@@ -56,8 +56,8 @@ for (i in 1:9) {
               color = "darkorange2", linetype = "longdash",
               data = model_data_temp %>% filter(Out == "Outlier")) +
     guides(color = "none") +
-    labs(title = paste0("Simulation Model ", i)) +
-    theme_bw() +
+    labs(title = paste0("Model ", i)) +
+    theme_bw(base_size = 16) +
     theme(panel.grid.major = element_blank(), 
           panel.grid.minor = element_blank(),
           panel.background = element_blank())
