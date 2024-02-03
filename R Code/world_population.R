@@ -242,7 +242,7 @@ ggplot() +
                 color = `Outlier Type`,
                 linetype = `Outlier Type`,
                 group = Country), 
-            size = 2,
+            size = 1.5,
             data = world_population_long %>% 
               dplyr::filter(`Outlier Type` != "None")) +
   geom_label_repel(aes(x = Year, 
@@ -250,20 +250,22 @@ ggplot() +
                        label = Country), 
                    data = world_population_long %>% 
                      dplyr::filter(Outlier, Year == 2010), 
-                   size = 6) +
+                   size = 4) +
   scale_color_manual(values = cbPalette, 
                      breaks = c("Magnitude", "Shape", "Both", "None")) +
   scale_linetype_manual(values = c("F1", "twodash", "dashed", "solid"),
                         breaks = c("Magnitude", "Shape", "Both", "None")) +
-  theme_bw(base_size = 20) +
-  theme(legend.position = c(0.15, 0.75), 
+  scale_x_continuous(expand = c(0, 0)) +
+  theme_bw(base_size = 16) +
+  theme(legend.position = c(0.15, 0.85), 
         legend.background = element_rect(fill = "white", 
                                          color = "black"), 
-        legend.key.size = unit(3, "cm"),
+        legend.key.size = unit(1.5, "cm"),
         legend.key.height = unit(1.5, "line"),
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(),
-        panel.background = element_blank()) +
+        panel.background = element_blank(), 
+        plot.margin = unit(c(0.2, 1, 0.2, 0.2), "cm")) +
   labs(y = "Population ('000)", 
        color = "Outlier Type", 
        linetype = "Outlier Type")
