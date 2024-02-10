@@ -54,7 +54,7 @@ pod_fda <- function(test_data, cutoff = .9) {
   #  points along the domain
   # plot_it (bool): should a plot be given of the curves, with the 
   #  outliers identified in a different color?
-  # cutoff (num): value between 0 and 1 specifying the presumed 
+  # cutoff (num): value between 0 and 1 specifying 1 minus the presumed 
   #  percentage of observations that are outliers
 
   
