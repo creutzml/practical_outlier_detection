@@ -7,6 +7,7 @@ The contents of this repository are organized into three main folders: R Code, D
 - **R Code**: folder that contains all R scripts for implementing POD, creating a random sample of functional data with outliers present, reproducing simulations, and reproducing the case study.
 - **Data**: the saved simulation .RData files are provided here for easy reproducibility of the simulation figures and tables. If any new simulation iterations are run, a new folder is created in this directory and the new simulation results are saved there. 
 - **Figures**: copies of the plots and figures presented in the manuscript.
+- [**Supplementary Paper**](https://github.com/creutzml/practical_outlier_detection/blob/main/Supplementary_Paper_Creutzinger_Sharp_2024.pdf) is provided in the repository as well.
 
 ## R Code: Details
 The primary R script of interest is `practical_outlier.R`, which contains the function to implement my functional outlier detection method, Practical Outlier Detection (POD). 
