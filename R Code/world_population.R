@@ -52,10 +52,10 @@ n_sp <- ncol(world_population)
 # 
 # ## Run easy outlier method (user specified)
 # #################################################################
-# easy_test_user <- easy_out_fda(
-#   test_data = world_population, 
-#   cutoff = thresh
-# )
+easy_test_user <- pod_fda(
+  test_data = world_population,
+  cutoff = 1
+)
 # 
 # # Grab the results
 # easy_outliers_user <- easy_test_user$outliers_tot
