@@ -12,12 +12,12 @@
 
 # Packages
 require(devtools)
-install_github("creutzml/ffscbExtra")
+install_github("creutzml/FunctionalPrediction")
 library(tidyverse)
 library(fdaoutlier)
 library(fda)
 library(ffscb)
-library(ffscbExtra)
+library(FunctionalPrediction)
 
 
 
