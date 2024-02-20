@@ -34,8 +34,26 @@ source(file.path(dir_path, "tvdmss_mc.R"))
 
 ## Load the data in
 #####################################################################
-# View(world_population)
-# matplot(t(world_population), type = "l")
+# data(world_population)
+# matplot(t(world_population), type = "l", col = "gray", lt = "solid")
+# world_population_df <- t(world_population) %>%
+#   as.data.frame() %>%
+#   mutate(Year = 1950:2010) %>%
+#   pivot_longer(-Year, 
+#                names_to = "Country", 
+#                values_to = "Population ('000)")
+# 
+# # Plot of the raw curves:
+# ggplot() +
+#   geom_line(aes(x = Year, y = `Population ('000)`, group = Country),
+#             alpha = 0.3,
+#             data = world_population_df) +
+#   scale_x_continuous(expand = c(0,0)) +
+#   theme_bw(base_size = 18) +
+#   theme(panel.grid.major = element_blank(), 
+#         panel.grid.minor = element_blank(),
+#         panel.background = element_blank(), 
+#         plot.margin = unit(c(0.2, 1, 0.2, 0.2), "cm"))
 
 # Grab common values
 n_obs <- nrow(world_population)
